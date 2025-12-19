@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Distraction Blocker",
+  "version": "1.0.0",
+  "description": "Pomodoro timer with distraction blocking for students. Stay focused, get motivated!",
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications",
+    "tabs",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Focus Timer"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "declarative_net_request": {
+    "rule_resources": [{
+      "id": "block_rules",
+      "enabled": false,
+      "path": "rules.json"
+    }]
+  },
+  "web_accessible_resources": [{
+    "resources": ["blocked.html", "blocked.js", "sounds/bell.mp3"],
+    "matches": ["<all_urls>"]
+  }]
+}
+

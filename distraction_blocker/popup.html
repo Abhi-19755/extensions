@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focus Timer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">🎯</span>
+        <h1>Focus Timer</h1>
+      </div>
+      <button id="settingsBtn" class="icon-btn" title="Settings">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v4m0 14v4M4.22 4.22l2.83 2.83m9.9 9.9l2.83 2.83M1 12h4m14 0h4M4.22 19.78l2.83-2.83m9.9-9.9l2.83-2.83"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Main Timer View -->
+    <main id="timerView" class="view active">
+      <!-- Session Indicator -->
+      <div class="session-badge" id="sessionBadge">
+        <span class="badge-dot"></span>
+        <span id="sessionType">Study Time</span>
+      </div>
+
+      <!-- Timer Circle -->
+      <div class="timer-wrapper">
+        <svg class="timer-ring" viewBox="0 0 200 200">
+          <circle class="timer-ring-bg" cx="100" cy="100" r="90"/>
+          <circle class="timer-ring-progress" id="timerProgress" cx="100" cy="100" r="90"/>
+        </svg>
+        <div class="timer-display">
+          <span class="time" id="timeDisplay">25:00</span>
+          <span class="session-count" id="sessionCount">Session #1</span>
+        </div>
+      </div>
+
+      <!-- Control Buttons -->
+      <div class="controls">
+        <button id="resetBtn" class="control-btn secondary" title="Reset">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+        </button>
+        <button id="mainBtn" class="control-btn primary">
+          <span class="btn-text" id="mainBtnText">Start</span>
+          <svg class="play-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5,3 19,12 5,21"/>
+          </svg>
+          <svg class="pause-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="6" y="4" width="4" height="16"/>
+            <rect x="14" y="4" width="4" height="16"/>
+          </svg>
+        </button>
+        <button id="skipBtn" class="control-btn secondary" title="Skip Session">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5,4 15,12 5,20" fill="currentColor"/>
+            <line x1="19" y1="5" x2="19" y2="19"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Motivation Message -->
+      <div class="motivation-card" id="motivationCard">
+        <p id="motivationText">Ready to focus? Start your session!</p>
+      </div>
+
+    </main>
+
+    <!-- Settings View -->
+    <section id="settingsView" class="view">
+      <div class="settings-header">
+        <button id="backBtn" class="icon-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </button>
+        <h2>Settings</h2>
+      </div>
+
+      <div class="settings-content">
+        <!-- Timer Settings -->
+        <div class="settings-group">
+          <h3>⏱️ Timer</h3>
+          
+          <div class="setting-item">
+            <label for="studyTime">Study Duration</label>
+            <div class="input-group">
+              <input type="number" id="studyTime" min="1" max="120" value="25">
+              <span>min</span>
+            </div>
+          </div>
+
+          <div class="setting-item">
+            <label for="breakTime">Break Duration</label>
+            <div class="input-group">
+              <input type="number" id="breakTime" min="1" max="30" value="5">
+              <span>min</span>
+            </div>
+          </div>
+
+          <div class="setting-item">
+            <label for="soundToggle">Sound Alert</label>
+            <label class="toggle">
+              <input type="checkbox" id="soundToggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Blocked Sites -->
+        <div class="settings-group">
+          <h3>🚫 Blocked Sites</h3>
+          <p class="settings-desc">Sites blocked during study sessions</p>
+          
+          <div class="blocked-sites" id="blockedSites">
+            <!-- Populated by JS -->
+          </div>
+
+          <div class="add-site">
+            <input type="text" id="newSiteInput" placeholder="example.com">
+            <button id="addSiteBtn" class="btn-small">Add</button>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="settings-group">
+          <h3>📊 Stats</h3>
+          <div class="stat-item">
+            <span>Sessions Completed</span>
+            <span class="stat-value" id="totalSessions">0</span>
+          </div>
+        </div>
+
+        <button id="saveSettingsBtn" class="btn-primary full-width">Save Settings</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Audio element for bell sound -->
+  <audio id="bellSound" preload="auto">
+    <source src="sounds/bell.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>
+

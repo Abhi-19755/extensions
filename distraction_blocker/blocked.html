@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stay Focused! 🎯</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0d1117;
+      color: #f0f6fc;
+      overflow: hidden;
+    }
+
+    /* Animated background */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: 
+        radial-gradient(ellipse at 20% 80%, rgba(249, 115, 22, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(163, 113, 247, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(88, 166, 255, 0.1) 0%, transparent 50%),
+        #0d1117;
+    }
+
+    .background::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 100px,
+          rgba(48, 54, 61, 0.2) 100px,
+          rgba(48, 54, 61, 0.2) 101px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 100px,
+          rgba(48, 54, 61, 0.2) 100px,
+          rgba(48, 54, 61, 0.2) 101px
+        );
+    }
+
+    /* Floating orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .orb-1 {
+      width: 300px;
+      height: 300px;
+      background: rgba(249, 115, 22, 0.3);
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: rgba(163, 113, 247, 0.2);
+      bottom: 10%;
+      right: 10%;
+      animation-delay: -4s;
+    }
+
+    .orb-3 {
+      width: 250px;
+      height: 250px;
+      background: rgba(88, 166, 255, 0.2);
+      top: 50%;
+      right: 30%;
+      animation-delay: -2s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.95); }
+    }
+
+    /* Main content */
+    .container {
+      text-align: center;
+      padding: 40px;
+      max-width: 600px;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Icon */
+    .icon {
+      font-size: 80px;
+      margin-bottom: 24px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Title */
+    h1 {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #f97316, #ea580c, #f97316);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient 3s ease infinite;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Subtitle */
+    .subtitle {
+      font-size: 20px;
+      color: #8b949e;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    /* Card */
+    .card {
+      background: rgba(22, 27, 34, 0.8);
+      border: 1px solid rgba(48, 54, 61, 0.8);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 32px;
+      backdrop-filter: blur(10px);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #6e7681;
+      margin-bottom: 16px;
+    }
+
+    .timer {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 64px;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 8px;
+    }
+
+    .session-type {
+      font-size: 16px;
+      color: #f97316;
+      font-weight: 500;
+    }
+
+    /* Quote */
+    .quote {
+      font-size: 18px;
+      color: #8b949e;
+      font-style: italic;
+      margin-bottom: 40px;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+
+    .quote::before {
+      content: '"';
+      font-size: 40px;
+      color: #30363d;
+      display: block;
+      margin-bottom: -20px;
+    }
+
+    /* Tips */
+    .tips {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .tip {
+      background: rgba(33, 38, 45, 0.8);
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 14px;
+      color: #8b949e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tip-icon {
+      font-size: 20px;
+    }
+
+    /* Button */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #58a6ff, #1d4ed8);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(88, 166, 255, 0.3);
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(88, 166, 255, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(-1px);
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: #6e7681;
+    }
+
+    .footer a {
+      color: #58a6ff;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1 { font-size: 36px; }
+      .timer { font-size: 48px; }
+      .tips { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="container">
+    <div class="icon">🚫</div>
+    
+    <h1>Stay Focused!</h1>
+    
+    <p class="subtitle">
+      This site is blocked during your study session.<br>
+      You're doing great – keep going!
+    </p>
+
+    <div class="card">
+      <div class="card-title">Study Session Active</div>
+      <div class="timer" id="timer">--:--</div>
+      <div class="session-type">Time remaining until break</div>
+    </div>
+
+    <p class="quote" id="quote">
+      The secret of getting ahead is getting started.
+    </p>
+
+    <div class="tips">
+      <div class="tip">
+        <span class="tip-icon">💧</span>
+        Stay hydrated
+      </div>
+      <div class="tip">
+        <span class="tip-icon">🧘</span>
+        Take deep breaths
+      </div>
+      <div class="tip">
+        <span class="tip-icon">🎯</span>
+        One task at a time
+      </div>
+    </div>
+
+    <button class="btn" id="goBackBtn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Go Back
+    </button>
+
+    <div class="footer">
+      Powered by Focus Timer 🎯
+    </div>
+  </div>
+
+  <script src="blocked.js"></script>
+</body>
+</html>

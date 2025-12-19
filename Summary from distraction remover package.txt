@@ -1,0 +1,49 @@
+Summary from package
+
+Remove distractions from YouTube to help you focus while studying. Hides recommended videos, shorts, comments, and suggestions.
+
+
+
+Description
+
+Remove distractions from YouTube to help you stay focused while studying by hiding recommendations, shorts, comments, and suggestions.
+
+
+education
+
+English
+
+single purpose descp
+
+The single purpose of this extension is to reduce distractions on YouTube while studying by removing non-essential interface elements such as recommended videos, suggested content, shorts, and comments. The extension helps users stay focused by allowing only essential features like the search bar and video player to remain visible.
+
+
+
+storage justification
+
+
+The storage permission is used to save the user’s Study Mode preference (on or off). This allows the extension to remember whether distraction removal should be enabled across browser sessions and page reloads. No personal or browsing data is stored.
+
+
+
+
+
+Host permission justification
+
+
+Host permission for https://www.youtube.com/* is required so the extension can run content scripts on YouTube pages and remove distracting elements using DOM manipulation. The extension only operates on YouTube and does not access or modify content on any other websites.
+	
+
+justification
+
+
+This extension does not use any remote code. All JavaScript, HTML, and CSS required for functionality are bundled directly within the extension package. No external scripts, eval calls, or remotely hosted code are used.
+
+
+
+
+
+
+
+
+
