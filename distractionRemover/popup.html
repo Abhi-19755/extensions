@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Distraction Remover</title>
+  <style>
+    /* ============================================
+       CSS Variables & Reset
+       ============================================ */
+    :root {
+      --bg-primary: #1a1a2e;
+      --bg-secondary: #16213e;
+      --bg-card: #0f3460;
+      --accent: #e94560;
+      --accent-hover: #ff6b6b;
+      --text-primary: #edf2f7;
+      --text-secondary: #a0aec0;
+      --success: #48bb78;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ============================================
+       Main Container
+       ============================================ */
+    body {
+      width: 320px;
+      min-height: 200px;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      color: var(--text-primary);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .container {
+      padding: 24px;
+    }
+
+    /* ============================================
+       Header Section
+       ============================================ */
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .logo {
+      font-size: 48px;
+      margin-bottom: 8px;
+      display: block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    /* ============================================
+       Toggle Section
+       ============================================ */
+    .toggle-section {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .toggle-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .toggle-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .toggle-status {
+      font-size: 12px;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .toggle-status.active {
+      color: var(--success);
+    }
+
+    .toggle-status.inactive {
+      color: var(--text-secondary);
+    }
+
+    /* ============================================
+       Toggle Switch
+       ============================================ */
+    .toggle-switch {
+      position: relative;
+      width: 56px;
+      height: 30px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #2d3748;
+      transition: var(--transition);
+      border-radius: 30px;
+    }
+
+    .slider::before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background: var(--text-primary);
+      transition: var(--transition);
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    input:checked + .slider {
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+    }
+
+    input:checked + .slider::before {
+      transform: translateX(26px);
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.3);
+    }
+
+    /* ============================================
+       Features List
+       ============================================ */
+    .features {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .features-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .feature-item {
+      font-size: 11px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .feature-item.active {
+      color: var(--text-primary);
+    }
+
+    .feature-icon {
+      font-size: 12px;
+      transition: var(--transition);
+    }
+
+    .feature-item.active .feature-icon {
+      color: var(--success);
+    }
+
+    /* ============================================
+       Footer
+       ============================================ */
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 10px;
+      color: var(--text-secondary);
+      opacity: 0.7;
+    }
+
+    /* ============================================
+       Animations
+       ============================================ */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      animation: fadeIn 0.3s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <span class="logo">🎯</span>
+      <h1 class="title">Distraction Remover</h1>
+      <p class="subtitle">Focus on what matters</p>
+    </div>
+
+    <!-- Toggle Section -->
+    <div class="toggle-section">
+      <div class="toggle-container">
+        <div class="toggle-info">
+          <span class="toggle-label">Study Mode</span>
+          <span id="status-text" class="toggle-status inactive">Disabled</span>
+        </div>
+        
+        <label class="toggle-switch">
+          <input type="checkbox" id="study-mode-toggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <!-- Features List -->
+      <div class="features">
+        <div class="features-title">Removes on YouTube</div>
+        <ul class="feature-list">
+          <li class="feature-item" data-feature="recommendations">
+            <span class="feature-icon">○</span>
+            <span>Recommendations</span>
+          </li>
+          <li class="feature-item" data-feature="suggestions">
+            <span class="feature-icon">○</span>
+            <span>Suggestions</span>
+          </li>
+          <li class="feature-item" data-feature="shorts">
+            <span class="feature-icon">○</span>
+            <span>Shorts</span>
+          </li>
+          <li class="feature-item" data-feature="comments">
+            <span class="feature-icon">○</span>
+            <span>Comments</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      Works on youtube.com • v1.0.0
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+
