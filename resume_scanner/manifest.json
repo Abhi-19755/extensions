@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Resume Scanner",
+  "version": "1.0.0",
+  "description": "Scan your resume against job descriptions and get AI-powered match analysis",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.naukri.com/*",
+    "https://*.indeed.com/*",
+    "https://api.openai.com/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["pdf.worker.min.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.naukri.com/*",
+        "https://*.indeed.com/*"
+      ],
+      "js": ["contentScript.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
+
