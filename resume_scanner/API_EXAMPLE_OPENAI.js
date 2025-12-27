@@ -5,7 +5,7 @@
 // WARNING: Storing API keys in source files is insecure. Do not commit
 // this key to version control. Prefer `chrome.storage.local` or an
 // options page in production.
-const GEMINI_API_KEY = 'AIzaSyA-0wtLOU3Drg7FBegvsqtVQKXW7YfHBks';
+const GEMINI_API_KEY = 'YOUR API KEY HERE';
 
 async function analyzeResume(jobDescription, resumeText) {
   if (!GEMINI_API_KEY || GEMINI_API_KEY === 'PUT_YOUR_GEMINI_API_KEY_HERE') {
