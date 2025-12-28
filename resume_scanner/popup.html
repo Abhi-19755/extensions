@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Scanner</title>
+  <link rel="stylesheet" href="popup.css">
+  <!-- PDF.js library for PDF parsing -->
+  <script src="pdf.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Resume Scanner</h1>
+      <p class="subtitle">Analyze your resume match</p>
+    </header>
+
+    <!-- Job Info Section -->
+    <div id="jobInfo" class="job-info hidden">
+      <div class="job-title" id="jobTitle">Loading job details...</div>
+      <div class="job-source" id="jobSource"></div>
+      <div id="jobOverview" class="job-overview hidden">
+        <p id="jobOverviewText" class="overview-text"></p>
+        <button id="toggleJobOverview" class="small-toggle">Show more</button>
+      </div>
+      <button id="refreshJobBtn" class="refresh-btn" title="Refresh job data">🔄 Refresh</button>
+    </div>
+
+    <!-- Resume Input Section -->
+    <div class="resume-section">
+      <label for="resumeText" class="label">Resume Text</label>
+      <textarea 
+        id="resumeText" 
+        class="resume-textarea" 
+        placeholder="Paste your resume text here or upload a file..."
+        rows="6"
+      ></textarea>
+      
+      <div class="file-upload-wrapper">
+        <input type="file" id="fileInput" accept=".txt,.pdf,.doc,.docx" class="file-input">
+        <label for="fileInput" class="file-label">
+          <span class="file-icon">📄</span>
+          Upload Resume File
+        </label>
+      </div>
+    </div>
+
+    <!-- Scan Button -->
+    <button id="scanButton" class="scan-button" disabled>
+      <span id="scanButtonText">Scan Resume</span>
+      <span id="scanButtonLoader" class="loader hidden"></span>
+    </button>
+
+    <!-- Error Message -->
+    <div id="errorMessage" class="error-message hidden"></div>
+
+    <!-- Results Section -->
+    <div id="results" class="results hidden">
+      <!-- Match Score -->
+      <div class="match-score-section">
+        <div class="score-circle">
+          <svg class="score-svg" viewBox="0 0 120 120">
+            <circle class="score-bg" cx="60" cy="60" r="54"></circle>
+            <circle class="score-progress" cx="60" cy="60" r="54" id="scoreCircle"></circle>
+          </svg>
+          <div class="score-text">
+            <span id="matchPercentage" class="percentage">0%</span>
+            <span class="label-text">Match</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Matched Skills -->
+      <div class="skills-section matched">
+        <h3 class="skills-title">
+          <span class="icon">✓</span>
+          Matched Skills
+        </h3>
+        <div id="matchedSkills" class="skills-list"></div>
+      </div>
+
+      <!-- Missing Skills -->
+      <div class="skills-section missing">
+        <h3 class="skills-title">
+          <span class="icon">✗</span>
+          Missing Skills
+        </h3>
+        <div id="missingSkills" class="skills-list"></div>
+      </div>
+
+      <!-- Suggestions -->
+      <div class="suggestions-section">
+        <h3 class="suggestions-title">
+          <span class="icon">💡</span>
+          Improvement Suggestions
+        </h3>
+        <div id="suggestions" class="suggestions-text"></div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="loading-state hidden">
+      <div class="spinner"></div>
+      <p>Analyzing your resume...</p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+
